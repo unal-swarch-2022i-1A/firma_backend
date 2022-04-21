@@ -7,3 +7,8 @@ services:
       - ./firma_signing_ms/src:/var/www/html/
     ports:
       - 80:80
+  user_ms:
+    container_name: firma_user_ms
+    build: ./firma_user_ms
+    ports:
+      - 8090:8090      
