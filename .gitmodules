@@ -1,3 +1,6 @@
 [submodule "firma_signing_ms"]
 	path = firma_signing_ms
 	url = https://github.com/unal-swarch-2022i-1A/firma_signing_ms.git
+[submodule "firma_user_ms"]
+	path = firma_user_ms
+	url = https://github.com/unal-swarch-2022i-1A/firma_user_ms.git
