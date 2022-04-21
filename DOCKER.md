@@ -15,6 +15,7 @@ docker run hello-world
 
 ## Lanzamiento
 ```bash
+git submodule update --init
 docker-compose --project-name "firma" build
 docker-compose --project-name "firma" up --detach
 ```
