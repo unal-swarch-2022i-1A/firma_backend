@@ -1,6 +1,9 @@
 # Docker
+
+## Instalación
 https://docs.docker.com/engine/install/debian/
 https://docs.docker.com/compose/install/
+
 ## Post-install para no-root
 ```bash
 sudo groupadd docker
@@ -9,10 +12,11 @@ newgrp docker
 docker run hello-world
 
 ``` 
+
 ## Lanzamiento
 ```bash
+docker-compose --project-name "firma" build
 docker-compose --project-name "firma" up --detach
-docker exec -it firma_signing_ms /bin/bash
 ```
 
 ## Enlazar una shell a contenedor
