@@ -2,7 +2,7 @@ version: "3.9"  # optional since v1.27.0
 services:
   signing_ms:
     container_name: firma_signing_ms
-    build: .
+    build: ./firma_signing_ms/
     volumes:
       - ./firma_signing_ms/src:/var/www/html/
     ports:
