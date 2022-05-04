@@ -4,7 +4,21 @@ services:
     container_name: firma_user_ms
     build: ./firma_user_ms
     ports:
-      - 8090:8090      
+      - 8090:8090
+  storage_ms:
+    container_name: firma_storage_ms    
+    build: ./firma_storage_ms
+    volumes:
+      - ./firma_storage_ms/src:/usr/src/app/src
+    ports:
+      - 8092:8000      
+  keys_ms:
+    container_name: firma_keys_ms    
+    build: ./firma_keys_ms
+    volumes:
+      - ./firma_keys_ms/src:/usr/src/app/src
+    ports:
+      - 8093:8093      
   signing_ms:
     container_name: firma_signing_ms
     build: ./firma_signing_ms/

@@ -16,3 +16,6 @@
 [submodule "firma_keys_ms"]
 	path = firma_keys_ms
 	url = https://github.com/unal-swarch-2022i-1A/firma_keys_ms.git
+[submodule "firma_storage_ms"]
+	path = firma_storage_ms
+	url = https://github.com/unal-swarch-2022i-1A/firma_storage_ms
