@@ -126,7 +126,8 @@ components:
       title: User
       type: object
       examples:
-        - email: email@email.com
+        - id: 1
+          email: email@email.com
           name: Pepito Pérez
           password: '12345678'
       description: ''
