@@ -7,3 +7,9 @@
 [submodule "firma_docs_ms"]
 	path = firma_docs_ms
 	url = https://github.com/unal-swarch-2022i-1A/firma_docs_ms.git
+[submodule "firma_ag"]
+	path = firma_ag
+	url = https://github.com/unal-swarch-2022i-1A/firma_ag.git
+[submodule "firma_mq"]
+	path = firma_mq
+	url = https://github.com/unal-swarch-2022i-1A/firma_mq.git
