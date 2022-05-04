@@ -13,3 +13,6 @@
 [submodule "firma_mq"]
 	path = firma_mq
 	url = https://github.com/unal-swarch-2022i-1A/firma_mq.git
+[submodule "firma_keys_ms"]
+	path = firma_keys_ms
+	url = https://github.com/unal-swarch-2022i-1A/firma_keys_ms.git
