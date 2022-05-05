@@ -26,3 +26,29 @@ services:
       - ./firma_signing_ms/src:/var/www/html/
     ports:
       - 8095:80      
+    networks:
+      - default
+    links:
+      - mq                
+  mq:
+    container_name: firma_mq   
+    build: ./firma_mq
+    environment:
+      - RABBITMQ_DEFAULT_USER=myuser
+      - RABBITMQ_DEFAULT_PASS=mypassword    
+    ports:
+      - 15672:15672
+      - 5672:5672
+    networks:
+      - default   
+  ag:
+    container_name: firma_ag   
+    build: ./firma_ag
+    volumes:
+      - ./firma_ag/src:/usr/src/app/src
+    ports:
+      - 80:80
+    networks:
+      - default
+    links:
+      - mq         

@@ -29,5 +29,5 @@ docker exec -it NOMBRE_CONTENEDOR /bin/bash
 
 ## Eliminar contenedores
 ```bash
-docker rm -f firma_signing_ms firma_user_ms ...
+docker rm -f firma_signing_ms firma_user_ms firma_storage_ms firma_keys_ms...
 ```
