@@ -5,6 +5,13 @@ services:
     build: ./firma_user_ms
     ports:
       - 8090:8090
+  docs_ms:
+    container_name: firma_docs_ms   
+    build: ./firma_docs_ms
+    volumes:
+      - ./firma_docs_ms/src:/usr/src/app/src
+    ports:
+      - 8091:3000      
   storage_ms:
     container_name: firma_storage_ms    
     build: ./firma_storage_ms
