@@ -7,7 +7,9 @@ services:
       - 8090:8090
   docs_ms:
     container_name: firma_docs_ms   
-    build: ./firma_docs_ms
+    build: 
+      dockerfile: ./Dockerfile.prod
+      context: ./firma_docs_ms   
     volumes:
       - ./firma_docs_ms/src:/usr/src/app/src
     ports:
