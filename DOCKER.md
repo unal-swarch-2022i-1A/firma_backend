@@ -107,15 +107,16 @@ sudo nsenter -t $(docker inspect -f '{{.State.Pid}}' my-apache-app) -n netstat -
 ```
 
 ## Docker-compose
-*Pendiente* 
+*TODO* 
 https://docs.docker.com/compose/
 
-### Lanzamiento
 
+### Lanzamiento
 ```bash
 docker-compose --project-name "firma" down
 docker-compose --project-name "firma" build
 docker-compose --project-name "firma" up --detach
+docker-compose --project-name "firma" logs -f --tail 1000 
 ```
 
 
