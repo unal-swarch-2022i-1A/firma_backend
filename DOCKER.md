@@ -59,7 +59,12 @@ docker run [etiqueta_imagen]
 ```bash
 docker ps
 docker exec -it NOMBRE_O_ID_CONTENEDOR /bin/bash
-
+```
+de esta manera podemos instalar utilidades como `ping` o `ip`
+```bash
+apt update
+apt install iputils-ping -y
+apt install iproute2 -y
 ```
 
 ### Opciones
@@ -91,14 +96,15 @@ docker run hello-world
 ```
 ### Ejemplo `MySQL server`
 Correr MySQL con variables de entorno con la opción `-e`. Le aisgnamos un nombre al contendedor con `--name` para poder encontrarlo con `docker ps`. La opción `-d` permite correr el contenedor en suegundo plano. Mapeamos el puerto interno del contenedor a un puerto del anfitrión con `-p [local]:[container]`
+
 ```bash
 docker run -d --name my-mysql-app -e MYSQL_ROOT_PASSWORD=123 -p 3360:3360 mysql
 ```
 
 ### Ejmplo `Apache server`
 Si queremos enlazar un directorio del host a un directorio del contenedor usamos la opción `-v`. Nota solo se pueden utilizar rutas absolutas. Con `--network="host"` hacemos accesibles los puertos del host desde el contenedor
-```bash
 
+```bash
 docker run -dit --name my-apache-app -v "$PWD":/usr/local/apache2/htdocs/ -p 80:80 httpd
 sudo nsenter -t $(docker inspect -f '{{.State.Pid}}' my-apache-app) -n netstat -tulpn
 docker rm -f my-apache-app
@@ -106,10 +112,45 @@ docker run -dit --name my-apache-app -v "$PWD":/usr/local/apache2/htdocs/ --netw
 sudo nsenter -t $(docker inspect -f '{{.State.Pid}}' my-apache-app) -n netstat -tulpn
 ```
 
+### Ejmplo `PHhpMyAdmin + MySQL en host`
+Con antelación tenemos un servidor MySQL corriendo en el host en `0.0.0.0:3306` y un usuario MySQL `firma@%` con contraseña `firma`. 
+```bash
+telnet localhost 3306
+```
+
+Para correr el contenedor
+```bash
+docker run -dit --name phpmyadmin \
+    -e PMA_HOST=host.docker.internal \
+    --add-host=host.docker.internal:host-gateway \
+    -p 8080:80 \
+    phpmyadmin
+docker exec -it phpmyadmin /bin/bash
+```
+
+Comprobamos conexión con los siguientes comandos o en http://localhost:8080
+```bash
+apt update && apt install iputils-ping iproute2 telnet -y
+ip a
+ping host.docker.internal -c 4
+telnet host.docker.internal 3306
+```
+
+
+### Logs
+```bash
+docker logs --tail 1000 -f [nombre del contenedor]
+```
+
 ## Docker-compose
 *TODO* 
 https://docs.docker.com/compose/
 
+Mapear un hostname a la ip del host
+```yaml
+extra_hosts:
+- "host.docker.internal:host-gateway"
+```
 
 ### Lanzamiento
 ```bash
