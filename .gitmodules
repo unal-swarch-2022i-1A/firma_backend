@@ -28,3 +28,6 @@
 [submodule "firma_ldap"]
 	path = firma_ldap
 	url = https://github.com/unal-swarch-2022i-1A/firma_ldap
+[submodule "firma_verification_ms"]
+	path = firma_verification_ms
+	url = https://github.com/unal-swarch-2022i-1A/firma_verification_ms
