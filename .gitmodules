@@ -19,3 +19,12 @@
 [submodule "firma_storage_ms"]
 	path = firma_storage_ms
 	url = https://github.com/unal-swarch-2022i-1A/firma_storage_ms
+[submodule "firma_interface"]
+	path = firma_interface
+	url = https://github.com/unal-swarch-2022i-1A/firma_interface
+[submodule "firma_proxy"]
+	path = firma_proxy
+	url = https://github.com/unal-swarch-2022i-1A/firma_proxy
+[submodule "firma_ldap"]
+	path = firma_ldap
+	url = https://github.com/unal-swarch-2022i-1A/firma_ldap

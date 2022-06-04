@@ -13,32 +13,31 @@ services:
     volumes:
       - ./firma_docs_ms/src:/usr/src/app/src
     ports:
-      - 8091:3000      
+      - 8091:8091      
   storage_ms:
     container_name: firma_storage_ms    
     build: ./firma_storage_ms
     volumes:
-      - ./firma_storage_ms/src:/usr/src/app/src
-    ports:
-      - 8092:8000      
+      - ./firma_storage_ms/src:/usr/src/app/src   
   keys_ms:
     container_name: firma_keys_ms    
-    build: ./firma_keys_ms
+    build: 
+      dockerfile: ./Dockerfile
+      context: ./firma_keys_ms
     volumes:
       - ./firma_keys_ms/src:/usr/src/app/src
-    ports:
-      - 8093:8093      
+      - ./firma_keys_ms/database:/usr/src/app/database
+    extra_hosts:
+      - host.docker.internal:host-gateway        
   signing_ms:
     container_name: firma_signing_ms
     build: ./firma_signing_ms/
     volumes:
       - ./firma_signing_ms/src:/var/www/html/
     ports:
-      - 8095:80      
+      - 8092:80      
     networks:
-      - default
-    links:
-      - mq                
+      - default         
   mq:
     container_name: firma_mq   
     build: ./firma_mq
@@ -58,6 +57,4 @@ services:
     ports:
       - 80:80
     networks:
-      - default
-    links:
-      - mq         
+      - default  
