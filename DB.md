@@ -1,6 +1,6 @@
 # Data bases
 
-## Host steup
+## Host setup
 ### Postgres
 ```bash
 sudo apt install postgresql postgresql-contrib
@@ -17,7 +17,7 @@ sudo apt install mysql-server
 sudo mysql_secure_installation
 ```
 
-### Creación de base de datos
+#### Creación de base de datos
 Nos conectamos con `sudo mysql -u root -p`
 ```sql
 CREATE DATABASE firma_keys_db;
@@ -38,6 +38,14 @@ Por defecto MySQL solo permite conexiones dentro del mismo host. Para permitir c
 sudo mysql -u root -p
 
 RENAME USER 'root'@'localhost' TO 'root'@'%';
+```
+#### Exportar desde CLI
+```bash
+sudo mysqldump -u root -p firma_keys_db > firma_keys_db.sql
+```
+#### Importar desde CLI
+```bash
+sudo mysql -u root -p < firma_keys_db.sql
 ```
 
 ### MongoDB
