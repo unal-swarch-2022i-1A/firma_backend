@@ -1,2 +1,4 @@
 /.metadata
 /.sonarlint
+# Ignore node_modules from git submodules
+*/node_modules
