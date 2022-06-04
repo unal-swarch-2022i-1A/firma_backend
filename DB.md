@@ -33,12 +33,6 @@ SHOW GRANTS FOR firma;
 #### Permitir conexiones remotas
 Por defecto MySQL solo permite conexiones dentro del mismo host. Para permitir conexiones remotas necesitamos definir en `/etc/mysql/mysql.conf.d/mysqld.cnf` la propiedad `bind-addresss` en `0.0.0.0`. Luego se reinicia el servicio con `sudo systemctl restart mysql`
 
-#### Permitir a usuarios remotos
-```bash
-sudo mysql -u root -p
-
-RENAME USER 'root'@'localhost' TO 'root'@'%';
-```
 #### Exportar desde CLI
 ```bash
 sudo mysqldump -u root -p firma_keys_db > firma_keys_db.sql
@@ -57,3 +51,4 @@ sudo systemctl start mongod
 ```
 
 ## Docker
+
