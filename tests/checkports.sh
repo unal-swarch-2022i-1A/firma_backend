@@ -28,6 +28,7 @@ services['Signing MS']='8092'
 services['Verification MS']='8093'
 services['API Gateway']='8093'
 services['Message Qeue']='5672'
+services['Message Qeue UI']='15672'
 services['Web application HTTP']='80'
 services['Web application HTTPS']='443'
 
