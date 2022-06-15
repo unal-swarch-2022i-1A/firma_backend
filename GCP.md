@@ -1,5 +1,28 @@
 # Google Cloud Project (GPC)
-## SSH
+## Google Cloud CLI
+Definimos la zona por defecto
+```bash
+gcloud config set compute/zone 'us-east1-b'
+```
+
+Definimos el proyecto
+```bash
+gcloud config set project 'unal-swarch-2022i-1a'
+```
+
+```bash
+gcloud compute instances describe production --zone=$ZONE
+```
+## Conexión remota
+### Por medio de Gogle Cloud CLI
+```bash
+gcloud compute ssh "firma-backend"
+```
+o
+```bash
+gcloud compute ssh --zone "us-east1-b" "firma-backend"  --project "unal-swarch-2022i-1a"
+```
+### Por medio de SSH
 https://cloud.google.com/compute/docs/oslogin/set-up-oslogin
 
 Variables a definir con la información de la cuenta 
