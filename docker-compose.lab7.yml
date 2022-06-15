@@ -26,7 +26,7 @@ services:
   keys_ms:
     container_name: firma_keys_ms    
     build: 
-      dockerfile: ./Dockerfile
+      dockerfile: ./Dockerfile.dev
       context: ./firma_keys_ms
     volumes:
       - ./firma_keys_ms/src:/usr/src/app/src
@@ -60,10 +60,11 @@ services:
       - ./firma_ag/src:/usr/src/app/src
     ports:
       - 8080:8080
+
   proxy:
     container_name: firma_proxy
     build: ./firma_proxy
     ports:
       - 80:80    
     extra_hosts:
-      - host.docker.internal:host-gateway           
+      - host.docker.internal:host-gateway              

@@ -22,15 +22,16 @@ declare -A services
 services['MySQL DB']='3306'
 services['Postgres DB']='5432'
 services['Mongo DB']='5432'
+services['API Gateway']='8080'
+services['Proxy inverso']='80'
 services['Users MS']='8090'
 services['Docs MS']='8091'
 services['Signing MS']='8092'
 services['Verification MS']='8093'
-services['API Gateway']='8093'
+services['LDAP']='8094'
+services['SOAP interface']='8095'
 services['Message Qeue']='5672'
 services['Message Qeue UI']='15672'
-services['Web application HTTP']='80'
-services['Web application HTTPS']='443'
 
 declare -a response
 for service in "${!services[@]}"
