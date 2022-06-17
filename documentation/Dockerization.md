@@ -1,4 +1,4 @@
-# Docker
+# Dockerization
 Toda *imagen* que esta en ejecución es *contenedor*.
 Paso a paso para dockerización:
 
