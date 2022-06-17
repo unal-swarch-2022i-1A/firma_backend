@@ -1,68 +1,21 @@
 version: "3.9"  # optional since v1.27.0
 services:
   user_ms:
-    container_name: firma_user_ms
+    container_name: lab7_user_ms
     build: ./firma_user_ms
     ports:
       - 8090:8090
-  docs_ms:
-    container_name: firma_docs_ms   
-    build: 
-      dockerfile: ./Dockerfile.prod
-      context: ./firma_docs_ms   
-    volumes:
-      - ./firma_docs_ms/src:/usr/src/app/src
-    ports:
-      - 8091:8091      
-    extra_hosts:
-      - host.docker.internal:host-gateway          
-  storage_ms:
-    container_name: firma_storage_ms    
-    build: ./firma_storage_ms
-    volumes:
-      - ./firma_storage_ms/src:/usr/src/app/src
-    extra_hosts:
-      - host.docker.internal:host-gateway             
-  keys_ms:
-    container_name: firma_keys_ms    
-    build: 
-      dockerfile: ./Dockerfile.dev
-      context: ./firma_keys_ms
-    volumes:
-      - ./firma_keys_ms/src:/usr/src/app/src
-      - ./firma_keys_ms/database:/usr/src/app/database
-    extra_hosts:
-      - host.docker.internal:host-gateway        
-  signing_ms:
-    container_name: firma_signing_ms
-    build: ./firma_signing_ms/
-    volumes:
-      - ./public:/var/www/html/
-      - ./src:/var/www/src/
-      - ./tests:/var/www/tests/
-    ports:
-      - 8092:80      
-    extra_hosts:
-      - host.docker.internal:host-gateway
-  mq:
-    container_name: firma_mq   
-    image: rabbitmq:3-management-alpine
-    environment:
-      - RABBITMQ_DEFAULT_USER=myuser
-      - RABBITMQ_DEFAULT_PASS=mypassword    
-    ports:
-      - 15672:15672
-      - 5672:5672
   ag:
-    container_name: firma_ag   
+    container_name: lab7_ag   
     build: ./firma_ag
     volumes:
       - ./firma_ag/src:/usr/src/app/src
     ports:
       - 8080:8080
-
+    extra_hosts:
+      - host.docker.internal:host-gateway          
   proxy:
-    container_name: firma_proxy
+    container_name: lab7_proxy
     build: ./firma_proxy
     ports:
       - 80:80    
