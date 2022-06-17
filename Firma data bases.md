@@ -6,6 +6,34 @@
 sudo apt install postgresql postgresql-contrib
 sudo -u postgres psql -c "SELECT version();"
 ```
+#### Conexión CLI
+Por defecto en la instalación se crea el usuario `postgres` en el host para conexión *Peer authentication*
+```bash
+sudo -u postgres psql
+```
+Podemos conectarnos con un usuario creado con `psql -U Username DatabaseName`, pero antes debemos cambiar en `pg_hba.conf` la autenticación *Peer authentication* por *Password authentication* de los demás usuarios
+```conf
+local   all             all                                md5
+```
+```bash
+psql -U firma firma_user_db
+```
+
+#### Import SQL
+```bash
+psql -h hostname -d databasename -U username -f file.sql
+```
+#### Export SQL
+TODO
+
+#### Remote connections
+1. En `postgresql.conf` poner `listen_addresses = '*'` y reiniciamos el servicio
+2. En `pg_hba.conf` poner
+	```conf
+	host    all             all              0.0.0.0/0                       md5
+	host    all             all              ::/0                            md5
+	```
+
 ### MySQL
 ```bash
 sudo apt install gnupg
@@ -52,3 +80,14 @@ sudo systemctl start mongod
 
 ## Docker
 
+### MongoDB
+```bash
+docker rm -f firma_mongo && \
+docker run -d \
+    --name firma_mongo \
+    -p 27017:27017 \
+	-e MONGO_INITDB_ROOT_USERNAME=mongoadmin \
+	-e MONGO_INITDB_ROOT_PASSWORD=secret \
+	mongo && \
+docker logs --tail 1000 -f firma_mongo    
+```
