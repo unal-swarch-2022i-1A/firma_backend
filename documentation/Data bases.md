@@ -44,7 +44,6 @@ sudo apt update
 sudo apt install mysql-server
 sudo mysql_secure_installation
 ```
-
 #### Creación de base de datos
 Nos conectamos con `sudo mysql -u root -p`
 ```sql
@@ -56,6 +55,12 @@ SELECT host, user, authentication_string FROM mysql.user;
 GRANT ALL PRIVILEGES ON firma_keys_db.* TO 'firma'@'%' WITH GRANT OPTION;
 FLUSH PRIVILEGES;
 SHOW GRANTS FOR firma;
+```
+#### Mostrar estructura
+```SQL
+SELECT host, user FROM mysql.user;
+USE firma_keys_db;
+SHOW TABLES;
 ```
 
 #### Permitir conexiones remotas

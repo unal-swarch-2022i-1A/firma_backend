@@ -1,25 +1,35 @@
-# Firma Backend
+# Firma Backen
 
-* [Cola de mensajes](MQ.md)
-* [Lazanmiento de aplicación dokerizada multi-contenedor](DOCKER.md)
-* [Conexión al servidor en la nube Google Cloud Project](GCP.md)
+## Documentation
+* [Cola de mensajes](./documentation/Message%20Queue.md)
+* [Lazanmiento de aplicación dokerizada multi-contenedor](./documentation/Dockerization.md)
+* [Conexión al servidor en la nube Google Cloud Project](./documentation/Google%20Cloud%20Project.md)
+* [Git y submodulos](./documentation/Git.md)
 
-##  Submodulos Git
-https://git-scm.com/book/en/v2/Git-Tools-Submodules
+## Deployment
+### Conexión 
+Leer primero [Conexión al servidor en la nube Google Cloud Project](./documentation/Google%20Cloud%20Project.md).
 
-Agregar un repostirio como submodulo a otro repositorio
+Iniciamos la VM
 ```bash
-git clone https://MASTER_PROJECT
-cd MASTER_PROJECT
-git submodule add https://SUB_PROJECT 
+gcloud compute instances start "firma-backend"
 ```
-
-Inicializar un repositorio con submodulos
+Nos conectamos a la shell
 ```bash
-git clone --recurse-submodules https://MASTER_PROJEC
+gcloud compute ssh "firma-backend"
 ```
-
-Actualizar un submodulo vacio
+En la VM vamos a `cd /home/developer/firma_backend` y probamos los servicios en backend con 
 ```bash
-git submodule update --init
+./tests/checkports.sh
+```
+### Base de datos
+#### Importar firma_user_db:PostgreSQL
+```bash
+sudo -u postgres psql -f firma_user_ms/firma_user_db/firma_user_db.structure.sql
+sudo -u postgres psql -d firma_user_db -f firma_user_ms/firma_user_db/firma_user_db.user.data.sql
+```
+#### Importar firma_keys_db:MySQL
+```bash
+sudo mysql -u root -p < firma_keys_ms/firma_keys_db/firma_keys_db.structure.sql
+sudo mysql -u root -p < firma_keys_ms/firma_keys_db/firma_keys_db.data.sql
 ```

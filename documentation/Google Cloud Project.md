@@ -12,7 +12,7 @@ gcloud config set project 'unal-swarch-2022i-1a'
 
 Para ver la información de una máquina
 ```bash
-gcloud compute instances describe production --zone=$ZONE
+gcloud compute instances describe "firma-backend"
 ```
 ## Conexión remota
 ### Por medio de Gogle Cloud CLI
