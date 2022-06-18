@@ -22,6 +22,12 @@ En la VM vamos a `cd /home/developer/firma_backend` y probamos los servicios en 
 ```bash
 ./tests/checkports.sh
 ```
+### Pull changes
+```bash
+cd /home/developer/firma_backend
+git pull
+git submodule update --init --recursive
+```
 ### Base de datos
 #### Importar firma_user_db:PostgreSQL
 ```bash
