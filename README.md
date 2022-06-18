@@ -29,6 +29,7 @@ git pull
 git submodule update --init --recursive
 ```
 ### Base de datos
+Credenciales: https://docs.google.com/document/d/10Nf_l2qOOvkGHcLOETpoG9xqQQvLBu-_H1nXMFO89bo/edit#heading=h.jqbg0shf0w3p
 #### Importar firma_user_db:PostgreSQL
 ```bash
 sudo -u postgres psql -f firma_user_ms/firma_user_db/firma_user_db.structure.sql
