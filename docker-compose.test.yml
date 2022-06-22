@@ -1,6 +1,12 @@
 version: "3.9" # optional since v1.27.0
 services:
 
+  user_ms:
+    container_name: user_ms_test
+    image: ghcr.io/unal-swarch-2022i-1a/firma_user_ms:latest
+    ports:
+      - 8090:8090
+
   keys_ms:
     container_name: keys_ms_test
     image: ghcr.io/unal-swarch-2022i-1a/firma_keys_ms:latest
@@ -43,4 +49,4 @@ services:
       test: rabbitmq-diagnostics -q ping
       interval: 30s
       timeout: 30s
-      retries: 3
+      retries: 5
