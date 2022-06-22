@@ -3,6 +3,12 @@
 ./tests/checkports.sh 
 ```
 
+```bash
+docker-compose --file "docker-compose.test.yml" --project-name "firma_test" down
+docker-compose --file "docker-compose.test.yml" --project-name "firma_test" up --detach
+docker-compose --file "docker-compose.test.yml" --project-name "firma_test" logs -f --tail 1000 
+```
+
 ## Lab7 - Performance
 ```bash
 docker-compose --file "docker-compose.lab7.yml" --project-name "1A_lab7" down

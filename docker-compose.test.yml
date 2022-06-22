@@ -1,33 +1,46 @@
-version: "3.9"  # optional since v1.27.0
+version: "3.9" # optional since v1.27.0
 services:
 
   keys_ms:
-    container_name: firma_keys_ms_test    
-    image: ghcr.io/unal-swarch-2022i-1a/firma_keys_ms:prod
+    container_name: keys_ms_test
+    image: ghcr.io/unal-swarch-2022i-1a/firma_keys_ms:latest
     volumes:
       - ./firma_keys_ms/src:/usr/src/app/src
       - ./firma_keys_ms/database:/usr/src/app/database
+    entrypoint:
+      [
+        "nodejs",
+        "src/keysRpcServer.js",
+        "generate",
+        "public",
+        "private"
+      ]
     extra_hosts:
-      - host.docker.internal:host-gateway  
+      - host.docker.internal:host-gateway
+    depends_on:
+      mq:
+        condition: service_healthy
 
   signing_ms:
-    container_name: firma_signing_ms_test
-    image: ghcr.io/unal-swarch-2022i-1a/firma_signing_ms:prod
+    container_name: signing_ms_test
+    image: ghcr.io/unal-swarch-2022i-1a/firma_signing_ms:latest
     volumes:
       - ./public:/var/www/html/
       - ./src:/var/www/src/
       - ./tests:/var/www/tests/
     ports:
-      - 8092:80      
+      - 8092:80
     extra_hosts:
       - host.docker.internal:host-gateway
 
   mq:
-    container_name: firma_mq_test
-    image: rabbitmq:3-management-alpine
-    environment:
-      - RABBITMQ_DEFAULT_USER=myuser
-      - RABBITMQ_DEFAULT_PASS=mypassword    
+    container_name: mq_test
+    image: ghcr.io/unal-swarch-2022i-1a/firma_mq:latest
     ports:
       - 15672:15672
       - 5672:5672
+    healthcheck:
+      test: rabbitmq-diagnostics -q ping
+      interval: 30s
+      timeout: 30s
+      retries: 3
