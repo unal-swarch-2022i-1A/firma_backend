@@ -7,6 +7,7 @@
 * [Git y submodulos](./documentation/Git.md)
 * [Bases de datos del sistema](./documentation/Data%20bases.md)
 * [Contraseñas e instrucciones privadas](https://docs.google.com/document/d/10Nf_l2qOOvkGHcLOETpoG9xqQQvLBu-_H1nXMFO89bo/edit#heading=h.jqbg0shf0w3p)
+* [Clusters](./documentation/Clusters.md)
 
 ## Micro-servicios
 | service               | Repo                  | Done      | LISTEN  | 
@@ -24,7 +25,34 @@
 | LDAP                  | firma_ldap            | 000%      | ¿?      |
 | SOAP Interface        | firma_intercae        | 000%      | ¿?      |
 
-## Deployment
+
+## Google Cloud Project
+```bash
+gcloud config set project 'unal-swarch-2022i-1a'
+gcloud config set compute/zone 'us-east1-b'
+gcloud config list
+```
+salida
+```bash
+[compute]
+region = us-east1
+zone = us-east1-b
+[core]
+account = faroseroc@unal.edu.co
+disable_usage_reporting = False
+project = unal-swarch-2022i-1a
+
+Your active configuration is: [default]
+```
+Variabls shell
+```bash
+ACCOUNT=faroseroc@unal.edu.co
+PROJECT_ID=unal-swarch-2022i-1a
+ZONE=us-east1-b
+```
+
+## Deployment con Docker Engine
+Válido solo para la entrega #4.
 ### Conexión 
 Leer primero [Conexión al servidor en la nube Google Cloud Project](./documentation/Google%20Cloud%20Project.md).
 
@@ -129,9 +157,87 @@ docker push ghcr.io/unal-swarch-2022i-1a/firma_storage_ms
 docker push ghcr.io/unal-swarch-2022i-1a/firma_user_ms
 ```
 
-### Kubernetes
-#### Local
+## Cluster de Kubernetes
+### Google Cloud
+```bash
+gcloud container clusters create \
+  --machine-type e2-micro \
+  --num-nodes 3 \
+  --zone $ZONE \
+  --cluster-version latest \
+  firma
+```
+### Local
 https://minikube.sigs.k8s.io/docs/start/
 ```bash
 minikube start
+```
+```mermaid
+graph TB
+    M(Master: GKE) --> CU(Cluster: firma)
+    CU --> CP{Control Plane}
+    CU --> WN1{Node 1<br>e2-micro}
+    WN1 --> KL1((Kuberlet))
+    WN1 --> KP1((Kuber-proxy))    
+    CU --> WN2{Node 2<br>e2-micro}
+    WN2 --> KL2((Kuberlet))
+    WN2 --> KP2((Kuber-proxy))    
+    CU --> WN3{Node 3<br>e2-micro}
+    WN3 --> KL3((Kuberlet))
+    WN3 --> KP3((Kuber-proxy))    
+```
+### Incrementar nodos (VMs)
+https://cloud.google.com/kubernetes-engine/docs/how-to/resizing-a-cluster
+```bash
+gcloud container clusters resize $CLUSTER_NAME --node-pool $POOL_NAME \
+    --num-nodes $NUM_NODES
+```
+### IPS externas de nodos
+```bash
+kubectl get node -o=custom-columns='NAME:.metadata.name,IP:.status.addresses[?(@.type=="ExternalIP")].address'
+```
+Salida
+```bash
+NAME                                   IP
+gke-firma-default-pool-47052e38-cm1h   34.138.92.101
+gke-firma-default-pool-47052e38-rgxl   34.148.113.185
+gke-firma-default-pool-47052e38-rk93   35.243.157.67
+```
+### Objetos `Deployment` para 1 replica
+```bash
+kubectl create deployment user --image=ghcr.io/unal-swarch-2022i-1a/firma_user_ms:latest
+```
+Esto crea el objeto deployment
+```bash
+kubectl get deployment
+```
+```bash
+NAME   READY   UP-TO-DATE   AVAILABLE   AGE
+user   1/1     1            1           32s
+```
+... con un solo pod
+```bash
+kubectl get pod -o wide
+```
+```
+NAME                    READY   STATUS    RESTARTS   AGE   IP          NODE                                   NOMINATED NODE   READINESS GATES
+user-84f8854599-dvppp   1/1     Running   0          52s   10.56.1.4   gke-firma-default-pool-47052e38-rgxl   <none>           <none>
+```
+### Objetos `Service` para exposición de red
+```bash
+kubectl expose deployment user --type=LoadBalancer --port 8090
+```
+```bash
+kubectl get service
+```
+```bash
+NAME         TYPE           CLUSTER-IP    EXTERNAL-IP       PORT(S)          AGE
+kubernetes   ClusterIP      10.60.0.1     <none>            443/TCP          15m
+user         LoadBalancer   10.60.15.92   35.185.43.183     8090:32569/TCP   19s
+```
+Vamos a http://35.185.43.183:8090/users
+
+#### Parar VM (nodos)
+```bash
+gcloud container clusters resize firma --node-pool default-pool --num-nodes 0
 ```
