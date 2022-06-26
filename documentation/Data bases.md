@@ -36,6 +36,8 @@ TODO
 
 ### MySQL
 ```bash
+sudo apt update
+sudo apt install wget
 sudo apt install gnupg
 cd /tmp
 wget https://dev.mysql.com/get/mysql-apt-config_0.8.22-1_all.deb
@@ -77,22 +79,24 @@ sudo mysql -u root -p < firma_keys_db.sql
 
 ### MongoDB
 ```bash
-wget -qO - https://www.mongodb.org/static/pgp/server-5.0.asc | sudo apt-key add -
-echo "deb http://repo.mongodb.org/apt/debian buster/mongodb-org/5.0 main" | sudo tee /etc/apt/sources.list.d/mongodb-org-5.0.list
 sudo apt-get update
+sudo apt-get install wget
+wget -qO - https://www.mongodb.org/static/pgp/server-5.0.asc | sudo apt-key add -
+echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu focal/mongodb-org/5.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-5.0.list
+sudo apt-get update
+sudo apt-get install -y mongodb-org
 sudo systemctl start mongod
+sudo systemctl status mongod
+sudo systemctl enable mongod
+mongosh
 ```
 
-## Docker
-
-### MongoDB
+## Verificar 
+Veriricar por servicios
 ```bash
-docker rm -f firma_mongo && \
-docker run -d \
-    --name firma_mongo \
-    -p 27017:27017 \
-	-e MONGO_INITDB_ROOT_USERNAME=mongoadmin \
-	-e MONGO_INITDB_ROOT_PASSWORD=secret \
-	mongo && \
-docker logs --tail 1000 -f firma_mongo    
+systemctl list-units --type=service | grep -E 'mysql|mongo|postgres'
+```
+Verificar por puertos
+```bash
+sudo netstat -tulpn | grep -E '3306|27017|5432'
 ```

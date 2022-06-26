@@ -16,6 +16,11 @@ gcloud compute instances describe "firma-backend"
 ```
 ## Conexión remota
 ### Por medio de Gogle Cloud CLI
+Listas las instancias de *Compute Engine*
+```bash
+gcloud compute instances list
+```
+Conectarnos a una instancia
 ```bash
 gcloud compute ssh "firma-backend"
 ```
