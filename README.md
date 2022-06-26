@@ -121,13 +121,6 @@ docker build -t firma_user_ms:latest        ./firma_user_ms/
 docker image ls | egrep '^firma_'
 ```
 #### Pusheo a Github Package
-**Autenticación**
-Se debe generar un token en Github
-```bash
-export CR_PAT=YOUR_TOKEN
-export USERNAME=YOUR_USERNAME
-echo $CR_PAT | docker login ghcr.io -u $USERNAME --password-stdin
-```
 **Etiquetado**
 El comando `docker tag` crea nombre:etiquetas de imágenes a partir de nombre:etiquetas imágenes existentes.
 ```bash
@@ -143,6 +136,13 @@ docker tag firma_signing_ms:latest ghcr.io/unal-swarch-2022i-1a/firma_signing_ms
 docker tag firma_storage_ms:latest ghcr.io/unal-swarch-2022i-1a/firma_storage_ms:latest
 docker tag firma_user_ms:latest    ghcr.io/unal-swarch-2022i-1a/firma_user_ms:latest
 docker image ls | grep unal-swarch-2022i-1a
+```
+**Autenticación**
+Se debe generar un token en Github
+```bash
+export CR_PAT=YOUR_TOKEN
+export USERNAME=YOUR_USERNAME
+echo $CR_PAT | docker login ghcr.io -u $USERNAME --password-stdin
 ```
 Publicación
 ```bash

@@ -1,5 +1,26 @@
 # Google Cloud Project (GPC)
 ## Google Cloud CLI
+Mostrar configuración del CLI actual:
+```bash
+gcloud config list
+```
+```
+[compute]
+region = us-east1
+zone = us-east1-b
+[core]
+account = faroseroc@unal.edu.co
+disable_usage_reporting = False
+project = unal-swarch-2022i-1a
+
+Your active configuration is: [default]
+```
+
+Definimos nuestro usuario
+```bash
+gcloud config set account 'faroseroc@unal.edu.co'
+```
+
 Definimos la zona por defecto
 ```bash
 gcloud config set compute/zone 'us-east1-b'
@@ -10,16 +31,18 @@ Definimos el proyecto
 gcloud config set project 'unal-swarch-2022i-1a'
 ```
 
-Para ver la información de una máquina
-```bash
-gcloud compute instances describe "firma-backend"
-```
 ## Conexión remota
 ### Por medio de Gogle Cloud CLI
 Listas las instancias de *Compute Engine*
 ```bash
 gcloud compute instances list
 ```
+
+Para ver la información de una máquina
+```bash
+gcloud compute instances describe "firma-backend"
+```
+
 Conectarnos a una instancia
 ```bash
 gcloud compute ssh "firma-backend"

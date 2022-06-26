@@ -56,6 +56,11 @@ docker run [etiqueta_imagen]
 ```
 
 ### Enlazar una shell a contenedor
+
+Shell GCP - Google Cloud Shell: `gcloud`
+└── Shell VM - Instancia de Compute Engine (Virtual Machine): `gloud compute ssh [nombre de la VM]`
+    └──Shell DC - Contenedor de docker: `docker exec -it NOMBRE_O_ID_CONTENEDOR /bin/bash` o `docker run -it NOMBRE-IMAGEN sh`
+
 ```bash
 docker ps
 docker exec -it NOMBRE_O_ID_CONTENEDOR /bin/bash

@@ -92,7 +92,7 @@ sudo systemctl enable mongod
 mongosh
 ```
 #### Conexión remota
-Cambiar el parámetro `bindIP` en el archivo `mongod.conf`:
+Cambiar el parámetro `bindIP` en el archivo `mongod.conf` de `127.0.0.1` a `0.0.0.0`:
 ```bash
 sudo nano /etc/mongod.conf
 ```

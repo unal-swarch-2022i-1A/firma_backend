@@ -245,6 +245,14 @@ Para ver la configuración actual
 kubectl config current-context
 ```
 ### Agregar un nodo al cluster
+```bash
+gcloud container clusters resize firma --node-pool default-pool --num-nodes 4
+```
+
+#### Parar VM (nodos) del cluster
+```bash
+gcloud container clusters resize firma --node-pool default-pool --num-nodes 0
+```
 
 ### Crear pods con `Deployment`
 Uno en teoria puede crear pods con `kubectl run` pero es con un recurso `deployment` que se pueden administrar `replicas`
@@ -259,6 +267,12 @@ kubectl get pods
 ```
 
 ### Exponer un puerto con `Service`
+A pesar de que cada Pod tiene una IP única, estas nos son expuestas fuera del cluster sin un *Service*. *Services* puede ser expuestos en diferentes maneras:
+* `ClusterIP`(default): Hace el servicio accesible solo dentro del cluster.
+* `NodePort`: Expone el servicio en el mismo puerto de cada nodo usando NAT (Network Address Traslation). Superconjunto de `ClusterIP`.
+* `LoadBalancer`: Crear un *load balancer* en el servicio de nube (p.ej. Google Cloud) y le asigna un IP fija. Superconjunto de `NodePort`.
+* `ExternalName`: Mapea un servicio a los contenidos del campo `externalName` retornando un registro CNAME con ese valor.
+
 ```bash
 kubectl expose deployment hello-server  --type=LoadBalancer --port 8080
 ```
