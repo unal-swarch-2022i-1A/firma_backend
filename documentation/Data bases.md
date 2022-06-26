@@ -78,6 +78,7 @@ sudo mysql -u root -p < firma_keys_db.sql
 ```
 
 ### MongoDB
+#### Setup
 ```bash
 sudo apt-get update
 sudo apt-get install wget
@@ -90,7 +91,21 @@ sudo systemctl status mongod
 sudo systemctl enable mongod
 mongosh
 ```
-
+#### Conexión remota
+Cambiar el parámetro `bindIP` en el archivo `mongod.conf`:
+```bash
+sudo nano /etc/mongod.conf
+```
+```
+# network interfaces
+net:
+  port: 27017
+  bindIp: 0.0.0.0
+```
+Reiniciamos el servicio
+```bash
+sudo systemctl restart mongod
+```
 ## Verificar 
 Veriricar por servicios
 ```bash
