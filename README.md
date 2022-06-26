@@ -1,6 +1,7 @@
 # Firma Backen
 
 ## Documentation
+* [Dokcerización](./documentation/Dockerization.md)
 * [Cola de mensajes](./documentation/Message%20Queue.md)
 * [Lazanmiento de aplicación dokerizada multi-contenedor](./documentation/Dockerization.md)
 * [Conexión al servidor en la nube Google Cloud Project](./documentation/Google%20Cloud%20Project.md)
@@ -236,8 +237,3 @@ kubernetes   ClusterIP      10.60.0.1     <none>            443/TCP          15m
 user         LoadBalancer   10.60.15.92   35.185.43.183     8090:32569/TCP   19s
 ```
 Vamos a http://35.185.43.183:8090/users
-
-#### Parar VM (nodos)
-```bash
-gcloud container clusters resize firma --node-pool default-pool --num-nodes 0
-```
