@@ -1,18 +1,28 @@
 version: "3.9" # optional since v1.27.0
 services:
 
+  docs_ms:
+    container_name: docs_ms_test
+    image: firma_docs_ms:latest
+    ports:
+      - 8091:8091
+    extra_hosts:
+      - host.docker.internal:host-gateway      
+    depends_on:
+      mq:
+        condition: service_healthy
+
   user_ms:
     container_name: user_ms_test
     image: firma_user_ms:latest
     ports:
       - 8090:8090
+    extra_hosts:
+      - host.docker.internal:host-gateway      
 
   keys_ms:
     container_name: keys_ms_test
     image: firma_keys_ms:latest
-    volumes:
-      - ./firma_keys_ms/src:/usr/src/app/src
-      - ./firma_keys_ms/database:/usr/src/app/database
     entrypoint:
       [
         "nodejs",
