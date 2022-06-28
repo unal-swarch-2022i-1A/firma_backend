@@ -30,10 +30,6 @@ services:
   signing_ms:
     container_name: signing_ms_test
     image: ghcr.io/unal-swarch-2022i-1a/firma_signing_ms:latest
-    volumes:
-      - ./public:/var/www/html/
-      - ./src:/var/www/src/
-      - ./tests:/var/www/tests/
     ports:
       - 8092:80
     extra_hosts:

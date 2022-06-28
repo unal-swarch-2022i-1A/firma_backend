@@ -1,0 +1,48 @@
+version: "3.9" # optional since v1.27.0
+services:
+
+  user_ms:
+    container_name: user_ms_test
+    image: firma_user_ms:latest
+    ports:
+      - 8090:8090
+
+  keys_ms:
+    container_name: keys_ms_test
+    image: firma_keys_ms:latest
+    volumes:
+      - ./firma_keys_ms/src:/usr/src/app/src
+      - ./firma_keys_ms/database:/usr/src/app/database
+    entrypoint:
+      [
+        "nodejs",
+        "src/keysRpcServer.js",
+        "generate",
+        "public",
+        "private"
+      ]
+    extra_hosts:
+      - host.docker.internal:host-gateway
+    depends_on:
+      mq:
+        condition: service_healthy
+
+  signing_ms:
+    container_name: signing_ms_test
+    image: firma_signing_ms:latest
+    ports:
+      - 8092:80
+    extra_hosts:
+      - host.docker.internal:host-gateway
+
+  mq:
+    container_name: mq_test
+    image: firma_mq:latest
+    ports:
+      - 15672:15672
+      - 5672:5672
+    healthcheck:
+      test: rabbitmq-diagnostics -q ping
+      interval: 30s
+      timeout: 30s
+      retries: 5
