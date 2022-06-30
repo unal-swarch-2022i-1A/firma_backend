@@ -1,18 +1,46 @@
 version: "3.9" # optional since v1.27.0
 services:
 
+  proxy:
+    container_name: proxy
+    image: ghcr.io/unal-swarch-2022i-1a/firma_proxy:latest
+    ports:
+      - 80:80
+    extra_hosts:
+      - host.docker.internal:host-gateway      
+    depends_on:
+      - ag      
+
+  ag:
+    container_name: ag
+    image: firma_ag:latest
+    ports:
+      - 8080:8080
+    extra_hosts:
+      - host.docker.internal:host-gateway    
+
+  docs_ms:
+    container_name: docs_ms
+    image: ghcr.io/unal-swarch-2022i-1a/firma_docs_ms:latest    
+    ports:
+      - 8091:8091
+    extra_hosts:
+      - host.docker.internal:host-gateway      
+    depends_on:
+      mq:
+        condition: service_healthy
+
   user_ms:
-    container_name: user_ms_test
+    container_name: user_ms
     image: ghcr.io/unal-swarch-2022i-1a/firma_user_ms:latest
     ports:
       - 8090:8090
+    extra_hosts:
+      - host.docker.internal:host-gateway      
 
   keys_ms:
-    container_name: keys_ms_test
+    container_name: keys_ms
     image: ghcr.io/unal-swarch-2022i-1a/firma_keys_ms:latest
-    volumes:
-      - ./firma_keys_ms/src:/usr/src/app/src
-      - ./firma_keys_ms/database:/usr/src/app/database
     entrypoint:
       [
         "nodejs",
@@ -26,9 +54,10 @@ services:
     depends_on:
       mq:
         condition: service_healthy
+    restart: always
 
   signing_ms:
-    container_name: signing_ms_test
+    container_name: signing_ms
     image: ghcr.io/unal-swarch-2022i-1a/firma_signing_ms:latest
     ports:
       - 8092:80
@@ -36,7 +65,7 @@ services:
       - host.docker.internal:host-gateway
 
   mq:
-    container_name: mq_test
+    container_name: mq
     image: ghcr.io/unal-swarch-2022i-1a/firma_mq:latest
     ports:
       - 15672:15672
