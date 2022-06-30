@@ -1,6 +1,24 @@
 version: "3.9" # optional since v1.27.0
 services:
 
+  proxy:
+    container_name: proxy_test
+    image: firma_proxy:latest
+    ports:
+      - 80:80
+    extra_hosts:
+      - host.docker.internal:host-gateway      
+    depends_on:
+      - ag      
+
+  ag:
+    container_name: ag_test
+    image: firma_ag:latest
+    ports:
+      - 8080:8080
+    extra_hosts:
+      - host.docker.internal:host-gateway    
+
   docs_ms:
     container_name: docs_ms_test
     image: firma_docs_ms:latest
