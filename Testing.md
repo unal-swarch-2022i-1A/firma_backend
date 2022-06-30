@@ -13,9 +13,9 @@ docker-compose --file "docker-compose.local.yml" --project-name "firma_test" log
 ## Github Packages
 
 ```bash
-docker-compose --file "docker-compose.ghcr.yml" --project-name "firma_test" down
-docker-compose --file "docker-compose.ghcr.yml" --project-name "firma_test" up --detach && \
-docker-compose --file "docker-compose.ghcr.yml" --project-name "firma_test" logs -f --tail 1000 
+docker-compose --file "docker-compose.ghcr.yml" --project-name "firma_ghcr" down
+docker-compose --file "docker-compose.ghcr.yml" --project-name "firma_ghcr" up --detach && \
+docker-compose --file "docker-compose.ghcr.yml" --project-name "firma_ghcr" logs -f --tail 1000 
 ```
 
 ## Lab7 - Performance

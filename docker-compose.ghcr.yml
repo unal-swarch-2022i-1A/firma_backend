@@ -12,8 +12,8 @@ services:
       - ag      
 
   ag:
-    container_name: ag
-    image: firma_ag:latest
+    container_name: ag    
+    image: ghcr.io/unal-swarch-2022i-1a/firma_ag:latest
     ports:
       - 8080:8080
     extra_hosts:

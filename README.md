@@ -157,6 +157,19 @@ docker push ghcr.io/unal-swarch-2022i-1a/firma_signing_ms
 docker push ghcr.io/unal-swarch-2022i-1a/firma_storage_ms
 docker push ghcr.io/unal-swarch-2022i-1a/firma_user_ms
 ```
+Descarga
+```bash
+docker pull ghcr.io/unal-swarch-2022i-1a/firma_ag
+docker pull ghcr.io/unal-swarch-2022i-1a/firma_docs_ms
+docker pull ghcr.io/unal-swarch-2022i-1a/firma_interface
+docker pull ghcr.io/unal-swarch-2022i-1a/firma_keys_ms
+docker pull ghcr.io/unal-swarch-2022i-1a/firma_ldap
+docker pull ghcr.io/unal-swarch-2022i-1a/firma_mq
+docker pull ghcr.io/unal-swarch-2022i-1a/firma_proxy
+docker pull ghcr.io/unal-swarch-2022i-1a/firma_signing_ms
+docker pull ghcr.io/unal-swarch-2022i-1a/firma_storage_ms
+docker pull ghcr.io/unal-swarch-2022i-1a/firma_user_ms
+```
 
 ## Cluster de Kubernetes
 ### Google Cloud
