@@ -91,6 +91,22 @@ sudo systemctl status mongod
 sudo systemctl enable mongod
 mongosh
 ```
+
+Creación de base de datos
+```bash
+mongosh
+```
+Crear base de datos:
+```mongosh
+use firma_docs_db
+```
+Para eliminar base de datos:
+```mongosh
+db.dropDatabase()
+```
+
+MongoDB no tiene estructura, así que a diferencia de MySQL y Postgres no hay script de estructura
+
 #### Conexión remota
 Cambiar el parámetro `bindIP` en el archivo `mongod.conf` de `127.0.0.1` a `0.0.0.0`:
 ```bash
@@ -106,6 +122,36 @@ Reiniciamos el servicio
 ```bash
 sudo systemctl restart mongod
 ```
+
+#### Importar
+```javascript
+// "/path/to/scrip/connect-and-insert.js"
+db = connect( 'mongodb://localhost/myDatabase' );
+db.movies.insertMany( [
+   {
+      title: 'Titanic',
+      year: 1997,
+      genres: [ 'Drama', 'Romance' ]
+   },
+   {
+      title: 'Spirited Away',
+      year: 2001,
+      genres: [ 'Animation', 'Adventure', 'Family' ]
+   },
+   {
+      title: 'Casablanca',
+      genres: [ 'Drama', 'Romance', 'War' ]
+   }
+] )
+```
+```bash
+cd '/path/to/scrip/'
+mongosh
+```
+```mongosh
+load( "connect-and-insert.js" )
+```
+
 ## Verificar 
 Veriricar por servicios
 ```bash
