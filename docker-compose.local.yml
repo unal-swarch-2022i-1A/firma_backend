@@ -36,6 +36,7 @@ services:
     depends_on:
       mq:
         condition: service_healthy
+    restart: always
 
   signing_ms:
     container_name: signing_ms_test
